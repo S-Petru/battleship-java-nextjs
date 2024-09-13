@@ -2,22 +2,25 @@
 import { useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [createUserWithEmailAndPassword] =
+  const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const router = useRouter();
 
   const handleSignUp = async () => {
     try {
       const res = await createUserWithEmailAndPassword(email, password);
-      console.log({ res });
-      sessionStorage.setItem("user", JSON.stringify(true)); // Store as a string
-      setEmail("");
-      setPassword("");
+      console.log("Firebase SignUp Response:", res); // Log the response
+      if (user) {
+        console.log("User Created:", user); // Log user information
+        router.push("/");
+      }
     } catch (e) {
-      console.error(e);
+      console.error("Sign Up Error:", e); // Log any errors
     }
   };
 
@@ -43,8 +46,9 @@ export default function SignUp() {
           onClick={handleSignUp}
           className="w-full rounded bg-indigo-600 p-3 text-white hover:bg-indigo-500"
         >
-          Sign Up
+          {loading ? "Signing Up..." : "Sign Up"}
         </button>
+        {error && <p className="mt-3 text-red-500">{error.message}</p>}
       </div>
     </div>
   );

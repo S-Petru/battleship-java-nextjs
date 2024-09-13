@@ -7,19 +7,26 @@ import { useRouter } from "next/navigation";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
   const router = useRouter();
 
   const handleSignIn = async () => {
     try {
       const res = await signInWithEmailAndPassword(email, password);
-      console.log({ res });
+      console.log("Firebase SignIn Response:", res); // Log the response
+      // ! Cred ca if ul asta crea urmatoarea problema:
+      // ? daca apasam pe sign-in primeam raspuns de la firebase
+      // ? ca se facea sign-in, dar cred ca venea dupa ce se facea verificare de user in if
+      // ? si era nevoie sa dau iar pe sign-in pentru ca a cum aveam un user si mergea redirect-ul
+      // ? asa, fara if, pare ca functioneaza cum trebuie
+      //if (user) {
+      console.log("User Signed In:", user); // Log user information
       sessionStorage.setItem("user", JSON.stringify(true));
-      setEmail("");
-      setPassword("");
       router.push("/");
+      //}
     } catch (e) {
-      console.error(e);
+      console.error("Sign In Error:", e); // Log any errors
     }
   };
 
@@ -45,8 +52,9 @@ export default function SignIn() {
           onClick={handleSignIn}
           className="w-full rounded bg-indigo-600 p-3 text-white hover:bg-indigo-500"
         >
-          Sign In
+          {loading ? "Signing In..." : "Sign In"}
         </button>
+        {error && <p className="mt-3 text-red-500">{error.message}</p>}
       </div>
     </div>
   );
