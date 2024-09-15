@@ -15,16 +15,18 @@ export default function SignIn() {
     try {
       const res = await signInWithEmailAndPassword(email, password);
       console.log("Firebase SignIn Response:", res); // Log the response
-      // ! Cred ca if ul asta crea urmatoarea problema:
+      // ! Cred ca if(user) ul asta crea urmatoarea problema:
       // ? daca apasam pe sign-in primeam raspuns de la firebase
       // ? ca se facea sign-in, dar cred ca venea dupa ce se facea verificare de user in if
       // ? si era nevoie sa dau iar pe sign-in pentru ca a cum aveam un user si mergea redirect-ul
       // ? asa, fara if, pare ca functioneaza cum trebuie
-      //if (user) {
-      console.log("User Signed In:", user); // Log user information
-      sessionStorage.setItem("user", JSON.stringify(true));
-      router.push("/");
-      //}
+      // * Ne folosim de response ca sa verificam daca sunt corecte credentialele
+      // * asa nu mai permitem sign in ca undefined / "Session user"
+      if (res != undefined) {
+        console.log("User Signed In:", user); // Log user information
+        sessionStorage.setItem("user", JSON.stringify(true));
+        router.push("/");
+      }
     } catch (e) {
       console.error("Sign In Error:", e); // Log any errors
     }
