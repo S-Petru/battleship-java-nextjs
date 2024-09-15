@@ -1,34 +1,46 @@
 "use client";
 import { useState } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
+    useSignInWithGoogle(auth);
   const router = useRouter();
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      const res = await signInWithGoogle();
+      if (res != undefined) {
+        console.log("User Signed In:", userGoogle);
+        sessionStorage.setItem("user", JSON.stringify(true));
+        router.push("/");
+      }
+    } catch (e) {
+      console.error("Sign In Error:", e);
+    }
+  };
 
   const handleSignIn = async () => {
     try {
       const res = await signInWithEmailAndPassword(email, password);
       console.log("Firebase SignIn Response:", res); // Log the response
-      // ! Cred ca if(user) ul asta crea urmatoarea problema:
-      // ? daca apasam pe sign-in primeam raspuns de la firebase
-      // ? ca se facea sign-in, dar cred ca venea dupa ce se facea verificare de user in if
-      // ? si era nevoie sa dau iar pe sign-in pentru ca a cum aveam un user si mergea redirect-ul
-      // ? asa, fara if, pare ca functioneaza cum trebuie
-      // * Ne folosim de response ca sa verificam daca sunt corecte credentialele
-      // * asa nu mai permitem sign in ca undefined / "Session user"
       if (res != undefined) {
-        console.log("User Signed In:", user); // Log user information
+        console.log("User Signed In:", user);
         sessionStorage.setItem("user", JSON.stringify(true));
         router.push("/");
       }
     } catch (e) {
-      console.error("Sign In Error:", e); // Log any errors
+      console.error("Sign In Error:", e);
     }
   };
 
@@ -57,6 +69,31 @@ export default function SignIn() {
           {loading ? "Signing In..." : "Sign In"}
         </button>
         {error && <p className="mt-3 text-red-500">{error.message}</p>}
+
+        <div className="my-4 flex items-center gap-2">
+          <div className="h-[2px] w-full rounded-full bg-white"></div>
+          <div className="text-white">OR</div>
+          <div className="h-[2px] w-full rounded-full bg-white"></div>
+        </div>
+
+        <button
+          onClick={handleSignInWithGoogle}
+          className="flex w-full items-center justify-center rounded bg-zinc-50 p-3 text-xl font-bold text-red-500 hover:bg-indigo-500"
+        >
+          {loadingGoogle ? (
+            "Signing In..."
+          ) : (
+            <Image
+              src="google-icon.svg" // Path to your Google logo
+              alt="Google Logo"
+              width={16} // Adjust width and height as per your design
+              height={16}
+            />
+          )}
+        </button>
+        {errorGoogle && (
+          <p className="mt-3 text-red-500">{errorGoogle.message}</p>
+        )}
       </div>
     </div>
   );
