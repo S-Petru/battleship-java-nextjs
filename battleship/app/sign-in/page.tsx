@@ -16,15 +16,20 @@ export default function SignIn() {
   const [signInWithGoogle, userGoogle, loadingGoogle, errorGoogle] =
     useSignInWithGoogle(auth);
   const router = useRouter();
+  const [displayErrorMessage, setDisplayErrorMessage] = useState(false);
 
   const handleSignInWithGoogle = async () => {
     try {
       const res = await signInWithGoogle();
       if (res != undefined) {
-        console.log("User Signed In:", userGoogle);
         sessionStorage.setItem("user", JSON.stringify(true));
         router.push("/");
       }
+      setDisplayErrorMessage(true);
+
+      setTimeout(() => {
+        setDisplayErrorMessage(false);
+      }, 2000);
     } catch (e) {
       console.error("Sign In Error:", e);
     }
@@ -33,68 +38,85 @@ export default function SignIn() {
   const handleSignIn = async () => {
     try {
       const res = await signInWithEmailAndPassword(email, password);
-      console.log("Firebase SignIn Response:", res); // Log the response
       if (res != undefined) {
-        console.log("User Signed In:", user);
         sessionStorage.setItem("user", JSON.stringify(true));
         router.push("/");
       }
+      setDisplayErrorMessage(true);
+
+      setTimeout(() => {
+        setDisplayErrorMessage(false);
+      }, 2000);
     } catch (e) {
       console.error("Sign In Error:", e);
     }
   };
 
+  const handleNavigateToSignUp = () => {
+    router.push("/sign-up");
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-900">
-      <div className="w-96 rounded-lg bg-gray-800 p-10 shadow-xl">
-        <h1 className="mb-5 text-2xl text-white">Sign In</h1>
+    <main className="bg-background-color flex min-h-screen flex-col items-center justify-center">
+      <div className="bg-primary-color full flex w-[90%] flex-col items-center gap-4 rounded-lg p-4">
+        <h1 className="text-text-color mb-4 text-4xl">Sign In</h1>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mb-4 w-full rounded bg-gray-700 p-3 text-white placeholder-gray-500 outline-none"
+          className="bg-secondary-color w-full rounded p-2 text-white placeholder-white/50 outline-none"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mb-4 w-full rounded bg-gray-700 p-3 text-white placeholder-gray-500 outline-none"
+          className="bg-secondary-color w-full rounded p-2 text-white placeholder-white/50 outline-none"
         />
-        <button
-          onClick={handleSignIn}
-          className="w-full rounded bg-indigo-600 p-3 text-white hover:bg-indigo-500"
-        >
-          {loading ? "Signing In..." : "Sign In"}
-        </button>
-        {error && <p className="mt-3 text-red-500">{error.message}</p>}
 
-        <div className="my-4 flex items-center gap-2">
-          <div className="h-[2px] w-full rounded-full bg-white"></div>
-          <div className="text-white">OR</div>
-          <div className="h-[2px] w-full rounded-full bg-white"></div>
-        </div>
+        <div className="mt-4 flex w-full flex-col gap-2">
+          <button
+            onClick={handleSignIn}
+            className="bg-accent-color hover:bg-accent-color/80 h-[52px] w-full rounded p-4 text-zinc-50"
+          >
+            Sign In
+          </button>
 
-        <button
-          onClick={handleSignInWithGoogle}
-          className="flex w-full items-center justify-center rounded bg-zinc-50 p-3 text-xl font-bold text-red-500 hover:bg-indigo-500"
-        >
-          {loadingGoogle ? (
-            "Signing In..."
-          ) : (
+          <div className="flex items-center gap-2">
+            <div className="h-[2px] w-full rounded-full bg-zinc-50"></div>
+            <div className="text-zinc-50">OR</div>
+            <div className="h-[2px] w-full rounded-full bg-zinc-50"></div>
+          </div>
+
+          <button
+            onClick={handleSignInWithGoogle}
+            className="text-accent-color flex w-full items-center justify-center rounded bg-zinc-50 p-4"
+          >
             <Image
-              src="google-icon.svg" // Path to your Google logo
+              src="google-icon.svg"
               alt="Google Logo"
-              width={16} // Adjust width and height as per your design
-              height={16}
+              width={20}
+              height={20}
             />
-          )}
-        </button>
-        {errorGoogle && (
-          <p className="mt-3 text-red-500">{errorGoogle.message}</p>
-        )}
+          </button>
+
+          <p
+            className="mx-auto mt-4 cursor-pointer text-white/50 underline hover:text-white/70"
+            onClick={handleNavigateToSignUp}
+          >
+            Don't have an account?
+          </p>
+        </div>
       </div>
-    </div>
+
+      {error && displayErrorMessage && (
+        <p className="text-red-500/80">{error.message}</p>
+      )}
+
+      {errorGoogle && displayErrorMessage && (
+        <p className="mx-auto text-red-500/80">{errorGoogle.message}</p>
+      )}
+    </main>
   );
 }

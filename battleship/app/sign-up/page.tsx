@@ -10,6 +10,7 @@ export default function SignUp() {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const router = useRouter();
+  const [displayErrorMessage, setDisplayErrorMessage] = useState(false);
 
   const handleSignUp = async () => {
     try {
@@ -22,34 +23,53 @@ export default function SignUp() {
     } catch (e) {
       console.error("Sign Up Error:", e); // Log any errors
     }
+    // Display error message if any
+    if (error) {
+      setDisplayErrorMessage(true);
+      setTimeout(() => {
+        setDisplayErrorMessage(false);
+      }, 3000); // Display for 3 seconds
+    }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-900">
-      <div className="w-96 rounded-lg bg-gray-800 p-10 shadow-xl">
-        <h1 className="mb-5 text-2xl text-white">Sign Up</h1>
+    <main className="bg-background-color flex min-h-screen flex-col items-center justify-center">
+      <div className="bg-primary-color full flex w-[90%] flex-col items-center gap-4 rounded-lg p-4">
+        <h1 className="text-text-color mb-4 text-4xl">Sign Up</h1>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mb-4 w-full rounded bg-gray-700 p-3 text-white placeholder-gray-500 outline-none"
+          className="bg-secondary-color w-full rounded p-2 text-white placeholder-white/50 outline-none"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mb-4 w-full rounded bg-gray-700 p-3 text-white placeholder-gray-500 outline-none"
+          className="bg-secondary-color w-full rounded p-2 text-white placeholder-white/50 outline-none"
         />
-        <button
-          onClick={handleSignUp}
-          className="w-full rounded bg-indigo-600 p-3 text-white hover:bg-indigo-500"
-        >
-          {loading ? "Signing Up..." : "Sign Up"}
-        </button>
-        {error && <p className="mt-3 text-red-500">{error.message}</p>}
+        <div className="mt-4 flex w-full flex-col gap-2">
+          <button
+            onClick={handleSignUp}
+            className="bg-accent-color hover:bg-accent-color/80 w-full rounded p-4 text-zinc-50 duration-200 ease-in-out"
+          >
+            {loading ? "Signing Up..." : "Sign Up"}
+          </button>
+
+          <p
+            className="mx-auto mt-4 cursor-pointer text-white/50 underline"
+            onClick={() => router.push("/sign-in")}
+          >
+            Already have an account?
+          </p>
+        </div>
       </div>
-    </div>
+
+      {error && displayErrorMessage && (
+        <p className="mt-4 text-red-500/80">{error.message}</p>
+      )}
+    </main>
   );
 }
