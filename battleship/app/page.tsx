@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 
+import Navbar from "./components/navbar/Navbar";
+import Menu from "./components/menu/Menu";
+
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
@@ -41,19 +44,23 @@ export default function Home() {
   };
 
   return (
-    <main className="flex h-screen flex-col items-center justify-around bg-gray-900 text-white">
-      <h1 className="text-5xl font-bold">Landing Page</h1>
+    <main className="flex h-screen flex-col items-center justify-around bg-background-color text-white">
+      <Navbar />
+
+      <h1 className="text-5xl font-bold text-text-color">Landing Page</h1>
       {user || userSession ? (
         <>
           <button
-            className="rounded bg-indigo-600 p-3"
+            className="rounded bg-accent-color p-4"
             onClick={() => router.push("/game")}
           >
             Start Game
           </button>
-          <p>Logged in as: {user?.email || "Session User"}</p>
+          <p className="text-text-color">
+            Logged in as: {user?.email || "Session User"}
+          </p>
           <button
-            className="mt-4 rounded bg-red-600 p-3"
+            className="mt-4 rounded bg-red-500/90 p-4"
             onClick={handleLogout}
           >
             Log Out
@@ -61,11 +68,11 @@ export default function Home() {
         </>
       ) : (
         <>
-          <button className="rounded bg-gray-600 p-3" disabled>
+          <button className="rounded bg-gray-600 p-4" disabled>
             Start Game
           </button>
           <button
-            className="mt-4 rounded bg-indigo-600 p-3"
+            className="mt-4 rounded bg-accent-color p-4"
             onClick={() => router.push("/sign-in")}
           >
             Log In

@@ -57,28 +57,28 @@ export default function SignIn() {
   };
 
   return (
-    <main className="bg-background-color flex min-h-screen flex-col items-center justify-center">
-      <div className="bg-primary-color full flex w-[90%] flex-col items-center gap-4 rounded-lg p-4">
-        <h1 className="text-text-color mb-4 text-4xl">Sign In</h1>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-background-color">
+      <div className="full flex w-[90%] flex-col items-center gap-4 rounded-lg bg-primary-color p-4">
+        <h1 className="mb-4 text-4xl text-text-color">Sign In</h1>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-secondary-color w-full rounded p-2 text-white placeholder-white/50 outline-none"
+          className="w-full rounded bg-secondary-color p-2 text-white placeholder-white/50 outline-none"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="bg-secondary-color w-full rounded p-2 text-white placeholder-white/50 outline-none"
+          className="w-full rounded bg-secondary-color p-2 text-white placeholder-white/50 outline-none"
         />
 
         <div className="mt-4 flex w-full flex-col gap-2">
           <button
             onClick={handleSignIn}
-            className="bg-accent-color hover:bg-accent-color/80 h-[52px] w-full rounded p-4 text-zinc-50"
+            className="h-[52px] w-full rounded bg-accent-color p-4 text-zinc-50 hover:opacity-85"
           >
             Sign In
           </button>
@@ -91,7 +91,7 @@ export default function SignIn() {
 
           <button
             onClick={handleSignInWithGoogle}
-            className="text-accent-color flex w-full items-center justify-center rounded bg-zinc-50 p-4"
+            className="flex w-full items-center justify-center rounded bg-zinc-50 p-4 text-accent-color hover:opacity-85"
           >
             <Image
               src="google-icon.svg"
@@ -102,7 +102,7 @@ export default function SignIn() {
           </button>
 
           <p
-            className="mx-auto mt-4 cursor-pointer text-white/50 underline hover:text-white/70"
+            className="mx-auto mt-4 cursor-pointer text-white/60 underline hover:text-white/85"
             onClick={handleNavigateToSignUp}
           >
             Don't have an account?

@@ -33,33 +33,33 @@ export default function SignUp() {
   };
 
   return (
-    <main className="bg-background-color flex min-h-screen flex-col items-center justify-center">
-      <div className="bg-primary-color full flex w-[90%] flex-col items-center gap-4 rounded-lg p-4">
-        <h1 className="text-text-color mb-4 text-4xl">Sign Up</h1>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-background-color">
+      <div className="full flex w-[90%] flex-col items-center gap-4 rounded-lg bg-primary-color p-4">
+        <h1 className="mb-4 text-4xl text-text-color">Sign Up</h1>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-secondary-color w-full rounded p-2 text-white placeholder-white/50 outline-none"
+          className="w-full rounded bg-secondary-color p-2 text-white placeholder-white/50 outline-none"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="bg-secondary-color w-full rounded p-2 text-white placeholder-white/50 outline-none"
+          className="w-full rounded bg-secondary-color p-2 text-white placeholder-white/50 outline-none"
         />
         <div className="mt-4 flex w-full flex-col gap-2">
           <button
             onClick={handleSignUp}
-            className="bg-accent-color hover:bg-accent-color/80 w-full rounded p-4 text-zinc-50 duration-200 ease-in-out"
+            className="h-[52px] w-full rounded bg-accent-color p-4 text-zinc-50 hover:bg-accent-color/80"
           >
-            {loading ? "Signing Up..." : "Sign Up"}
+            Sign Up
           </button>
 
           <p
-            className="mx-auto mt-4 cursor-pointer text-white/50 underline"
+            className="mx-auto mt-4 cursor-pointer text-white/50 underline hover:text-white/70"
             onClick={() => router.push("/sign-in")}
           >
             Already have an account?
