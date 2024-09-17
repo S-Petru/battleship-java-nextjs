@@ -16,7 +16,7 @@ export default function Navbar() {
       <div className="mx-auto flex w-[90%] items-center justify-between py-4">
         <h6
           onClick={goToMainPage}
-          className="cursor-pointer text-2xl font-bold text-text-color"
+          className="cursor-pointer text-3xl font-bold text-text-color"
         >
           Battleship
         </h6>
@@ -27,14 +27,14 @@ export default function Navbar() {
         >
           {!isMenuOpen ? (
             <>
-              <div className="h-[3px] w-[90%] rounded-full bg-text-color"></div>
-              <div className="h-[3px] w-[90%] rounded-full bg-text-color"></div>
-              <div className="h-[3px] w-[90%] rounded-full bg-text-color"></div>
+              <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
+              <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
+              <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
             </>
           ) : (
             <>
-              <div className="h-[3px] w-[90%] translate-y-[8px] rotate-45 transform rounded-full bg-text-color"></div>
-              <div className="h-[3px] w-[90%] -translate-y-[8px] -rotate-45 transform rounded-full bg-text-color"></div>
+              <div className="h-[4px] w-[90%] translate-y-[8px] rotate-45 transform rounded-full bg-text-color"></div>
+              <div className="h-[4px] w-[90%] -translate-y-[8px] -rotate-45 transform rounded-full bg-text-color"></div>
             </>
           )}
         </div>

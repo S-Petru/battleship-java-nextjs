@@ -7,7 +7,6 @@ import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 import Navbar from "./components/navbar/Navbar";
-import Menu from "./components/menu/Menu";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
@@ -44,41 +43,68 @@ export default function Home() {
   };
 
   return (
-    <main className="flex h-screen flex-col items-center justify-around bg-background-color text-white">
+    <main className="flex h-screen flex-col items-center justify-center bg-background-color text-white">
       <Navbar />
 
-      <h1 className="text-5xl font-bold text-text-color">Landing Page</h1>
-      {user || userSession ? (
-        <>
-          <button
-            className="rounded bg-accent-color p-4"
-            onClick={() => router.push("/game")}
-          >
-            Start Game
-          </button>
-          <p className="text-text-color">
-            Logged in as: {user?.email || "Session User"}
-          </p>
-          <button
-            className="mt-4 rounded bg-red-500/90 p-4"
-            onClick={handleLogout}
-          >
-            Log Out
-          </button>
-        </>
-      ) : (
-        <>
-          <button className="rounded bg-gray-600 p-4" disabled>
-            Start Game
-          </button>
-          <button
-            className="mt-4 rounded bg-accent-color p-4"
-            onClick={() => router.push("/sign-in")}
-          >
-            Log In
-          </button>
-        </>
-      )}
+      <div className="flex w-[90%] flex-col gap-12">
+        <h1 className="mb-24 w-full text-center text-5xl font-bold text-text-color">
+          Welcome to Battleship
+        </h1>
+
+        <div className="flex flex-col gap-4">
+          {user || userSession ? (
+            <>
+              <button
+                className="mx-auto w-fit rounded bg-accent-color p-4"
+                onClick={() => router.push("/")}
+              >
+                Join a Game
+              </button>
+
+              <button
+                className="mx-auto w-fit rounded bg-accent-color p-4"
+                onClick={() => router.push("/")}
+              >
+                Create a Game
+              </button>
+
+              <button
+                className="mx-auto mt-4 w-fit rounded bg-red-500/90 p-4"
+                onClick={handleLogout}
+              >
+                Log Out
+              </button>
+              <p className="mx-auto text-text-color">
+                Logged in as: {user?.email || "Session User"}
+              </p>
+            </>
+          ) : (
+            <>
+              <button
+                className="mx-auto w-fit rounded bg-gray-600 p-4"
+                disabled
+              >
+                Join a Game
+              </button>
+              <button
+                className="mx-auto w-fit rounded bg-gray-600 p-4"
+                disabled
+              >
+                Create Game
+              </button>
+              <button
+                className="mx-auto mt-12 w-fit rounded bg-accent-color p-4"
+                onClick={() => router.push("/sign-in")}
+              >
+                Log In
+              </button>
+              <p className="mx-auto text-sm font-light text-text-color">
+                (!) In Order to play, you must log in
+              </p>
+            </>
+          )}
+        </div>
+      </div>
     </main>
   );
 }

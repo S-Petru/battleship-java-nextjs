@@ -121,9 +121,9 @@ export default function Menu({ isMenuOpen }: MenuProps) {
           </svg>
         </div>
 
-        <div className="h-[1.5px] rounded-full bg-accent-color"></div>
+        {/* <div className="h-[1.5px] rounded-full bg-accent-color"></div>
 
-        <div className="mx-auto flex w-fit cursor-pointer items-start gap-2">
+        <div className="mx-auto flex w-fit cursor-pointer items-start gap-2 text-red-600/85">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -139,7 +139,7 @@ export default function Menu({ isMenuOpen }: MenuProps) {
             />
           </svg>
           <p className="text-xl">Logout</p>
-        </div>
+        </div> */}
       </div>
     </main>
   );
