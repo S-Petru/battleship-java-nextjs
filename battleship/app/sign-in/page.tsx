@@ -46,7 +46,7 @@ export default function SignIn() {
 
       setTimeout(() => {
         setDisplayErrorMessage(false);
-      }, 2000);
+      }, 3000);
     } catch (e) {
       console.error("Sign In Error:", e);
     }

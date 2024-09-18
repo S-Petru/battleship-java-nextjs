@@ -15,20 +15,20 @@ export default function SignUp() {
   const handleSignUp = async () => {
     try {
       const res = await createUserWithEmailAndPassword(email, password);
-      console.log("Firebase SignUp Response:", res); // Log the response
+      console.log("Firebase SignUp Response:", res);
       if (user) {
-        console.log("User Created:", user); // Log user information
+        console.log("User Created:", user);
         router.push("/");
       }
     } catch (e) {
-      console.error("Sign Up Error:", e); // Log any errors
+      console.error("Sign Up Error:", e);
     }
-    // Display error message if any
+
     if (error) {
       setDisplayErrorMessage(true);
       setTimeout(() => {
         setDisplayErrorMessage(false);
-      }, 3000); // Display for 3 seconds
+      }, 3000);
     }
   };
 

@@ -11,6 +11,8 @@ export default function Navbar() {
     router.push("/");
   };
 
+  const sessionUser = sessionStorage.getItem("user");
+
   return (
     <main className="fixed top-0 w-full bg-primary-color">
       <div className="mx-auto flex w-[90%] items-center justify-between py-4">
@@ -21,23 +23,27 @@ export default function Navbar() {
           Battleship
         </h6>
 
-        <div
-          onClick={() => setMenu(!isMenuOpen)}
-          className="flex h-8 w-8 cursor-pointer flex-col items-center justify-around"
-        >
-          {!isMenuOpen ? (
-            <>
-              <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
-              <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
-              <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
-            </>
-          ) : (
-            <>
-              <div className="h-[4px] w-[90%] translate-y-[8px] rotate-45 transform rounded-full bg-text-color"></div>
-              <div className="h-[4px] w-[90%] -translate-y-[8px] -rotate-45 transform rounded-full bg-text-color"></div>
-            </>
-          )}
-        </div>
+        {sessionUser ? (
+          <div
+            onClick={() => setMenu(!isMenuOpen)}
+            className="flex h-8 w-8 cursor-pointer flex-col items-center justify-around"
+          >
+            {!isMenuOpen ? (
+              <>
+                <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
+                <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
+                <div className="h-[4px] w-[90%] rounded-full bg-text-color"></div>
+              </>
+            ) : (
+              <>
+                <div className="h-[4px] w-[90%] translate-y-[8px] rotate-45 transform rounded-full bg-text-color"></div>
+                <div className="h-[4px] w-[90%] -translate-y-[8px] -rotate-45 transform rounded-full bg-text-color"></div>
+              </>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
 
       <Menu isMenuOpen={isMenuOpen} />
