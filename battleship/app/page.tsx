@@ -92,7 +92,7 @@ export default function Home() {
                 Log In
               </button>
               <p className="absolute bottom-4 left-0 right-0 mx-auto w-fit font-light text-text-color">
-                In Order to play, you must log in
+                In order to play, you must log in
               </p>
             </>
           )}

@@ -1,8 +1,27 @@
+import { useRouter } from "next/navigation";
 interface MenuProps {
   isMenuOpen: boolean;
 }
 
 export default function Menu({ isMenuOpen }: MenuProps) {
+  const router = useRouter();
+
+  const handleMenuRouting = (route: string) => {
+    switch (route) {
+      case "Profile":
+        router.push("/profile");
+        break;
+      case "Stats":
+        router.push("/stats");
+        break;
+      case "Settings":
+        router.push("/settings");
+        break;
+      default:
+        console.error("Unknown route:", route);
+    }
+  };
+
   return (
     <main
       className={`fixed flex h-fit w-screen transform flex-col bg-primary-color duration-300 ease-in ${
@@ -10,7 +29,10 @@ export default function Menu({ isMenuOpen }: MenuProps) {
       }`}
     >
       <div className="mx-auto flex w-[90%] flex-col gap-4 py-4 text-text-color">
-        <div className="flex cursor-pointer items-center justify-between">
+        <div
+          onClick={() => handleMenuRouting("Profile")}
+          className="flex cursor-pointer items-center justify-between"
+        >
           <div className="flex items-start gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +68,10 @@ export default function Menu({ isMenuOpen }: MenuProps) {
 
         <div className="h-[1.5px] rounded-full bg-accent-color"></div>
 
-        <div className="flex cursor-pointer items-center justify-between">
+        <div
+          onClick={() => handleMenuRouting("Stats")}
+          className="flex cursor-pointer items-center justify-between"
+        >
           <div className="flex items-start gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +107,10 @@ export default function Menu({ isMenuOpen }: MenuProps) {
 
         <div className="h-[1.5px] rounded-full bg-accent-color"></div>
 
-        <div className="flex cursor-pointer items-center justify-between">
+        <div
+          onClick={() => handleMenuRouting("Settings")}
+          className="flex cursor-pointer items-center justify-between"
+        >
           <div className="flex items-start gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -120,26 +148,6 @@ export default function Menu({ isMenuOpen }: MenuProps) {
             />
           </svg>
         </div>
-
-        {/* <div className="h-[1.5px] rounded-full bg-accent-color"></div>
-
-        <div className="mx-auto flex w-fit cursor-pointer items-start gap-2 text-red-600/85">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.4}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-            />
-          </svg>
-          <p className="text-xl">Logout</p>
-        </div> */}
       </div>
     </main>
   );
