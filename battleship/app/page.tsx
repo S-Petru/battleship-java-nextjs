@@ -49,14 +49,14 @@ export default function Home() {
             <>
               <button
                 className="mx-auto w-fit rounded bg-accent-color p-4"
-                onClick={() => router.push("/")}
+                onClick={() => router.push("/join-game")}
               >
                 Join a Game
               </button>
 
               <button
                 className="mx-auto w-fit rounded bg-accent-color p-4"
-                onClick={() => router.push("/")}
+                onClick={() => router.push("/create-game")}
               >
                 Create a Game
               </button>
@@ -74,16 +74,17 @@ export default function Home() {
           ) : (
             <>
               <button
-                className="mx-auto w-fit rounded bg-gray-600 p-4"
-                disabled
+                className="mx-auto w-fit rounded bg-accent-color p-4"
+                onClick={() => router.push("/")}
               >
                 Join a Game
               </button>
+
               <button
-                className="mx-auto w-fit rounded bg-gray-600 p-4"
-                disabled
+                className="mx-auto w-fit rounded bg-accent-color p-4"
+                onClick={() => router.push("/")}
               >
-                Create Game
+                Create a Game
               </button>
               <button
                 className="mx-auto mt-24 w-fit rounded bg-accent-color p-4"
@@ -91,8 +92,8 @@ export default function Home() {
               >
                 Log In
               </button>
-              <p className="absolute bottom-4 left-0 right-0 mx-auto w-fit font-light text-text-color">
-                In order to play, you must log in
+              <p className="absolute bottom-4 left-0 right-0 mx-auto w-fit text-sm font-light text-text-color">
+                For profile stats, you need to log in!
               </p>
             </>
           )}

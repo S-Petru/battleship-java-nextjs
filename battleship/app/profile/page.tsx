@@ -6,31 +6,37 @@ import { useState } from "react";
 export default function Profile() {
   const [isPasswordVisible, togglePasswordVisibility] = useState(false);
 
+  let currentUsername = "currentUsr";
+  let currentEmail = "current@Email";
+  let currentPassword = "currentPassword";
+
   return (
-    <main className="bg-background-color">
+    <main className="bg-background-color text-text-color">
       <Navbar />
       <div className="mx-auto h-screen w-[90%] py-24">
-        <h1 className="mx-auto mb-8 text-center text-2xl">Profile</h1>
+        <h1 className="mx-auto mb-8 text-center text-4xl">Profile</h1>
 
-        <div className="mx-auto mb-8 h-20 w-20 rounded-full bg-accent-color"></div>
+        <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full border-4 border-accent-color text-4xl">
+          <p>{currentUsername[0]}</p>
+        </div>
 
         <section className="mx-auto mb-8">
           <div className="flex flex-col gap-4">
             <div>
               <p>Username:</p>
               <input
-                className="rounded-md border-2 border-text-color bg-inherit"
+                className="rounded-md border-2 border-text-color bg-inherit p-1"
                 type="text"
-                value={"currentUsername"}
+                value={currentUsername}
               />
             </div>
 
             <div>
               <p>Email:</p>
               <input
-                className="rounded-md border-2 border-text-color bg-inherit"
+                className="rounded-md border-2 border-text-color bg-inherit p-1"
                 type="text"
-                value={"currentEmail@gmail.com"}
+                value={currentEmail}
               />
             </div>
 
@@ -38,10 +44,10 @@ export default function Profile() {
               <p>Password:</p>
               <div className="flex items-center gap-2">
                 <input
-                  className="rounded-md border-2 border-text-color bg-inherit"
+                  className="rounded-md border-2 border-text-color bg-inherit p-1"
                   type={`${isPasswordVisible ? "text" : "password"}`}
                   placeholder="passwordPlaceholder"
-                  value={"currentPassword"}
+                  value={currentPassword}
                 />
 
                 {isPasswordVisible ? (
@@ -89,10 +95,6 @@ export default function Profile() {
               Save
             </button>
           </div>
-        </section>
-
-        <section>
-          <h2>Friends List</h2>
         </section>
       </div>
     </main>

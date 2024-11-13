@@ -29,6 +29,7 @@ export default function Menu({ isMenuOpen }: MenuProps) {
       }`}
     >
       <div className="mx-auto flex w-[90%] flex-col gap-4 py-4 text-text-color">
+        {/* === Proflie link === */}
         <div
           onClick={() => handleMenuRouting("Profile")}
           className="flex cursor-pointer items-center justify-between"
